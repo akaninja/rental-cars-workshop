@@ -1,7 +1,7 @@
 <h1>Locação</h1>
 <dl class="row">
   <dt class="col-sm-3">Status:</dt>
-  <dd class="col-sm-9"><%= t @rental.status %></dd>
+  <dd class="col-sm-9"><%= @rental.status %></dd>
   <dt class="col-sm-3">Retirada Prevista:</dt>
   <dd class="col-sm-9"><%= l @rental.scheduled_start %></dd>
   <dt class="col-sm-3">Devolução Prevista:</dt>
@@ -24,7 +24,7 @@
 <h2>Carro</h2>
 <%= render @rental.car %>
 <% if @rental.scheduled? %>
-  <%= link_to 'Confirmar Retirada', withdraw_rental_path(@rental), method: :post %>
+  <%= @rental.withdraw_link %>
 <% end %>
 <% if @rental.active? %>
   <%= link_to "Confirmar Devolução", new_car_return_rental_path(@rental) %>
