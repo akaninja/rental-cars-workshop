@@ -7,11 +7,9 @@
   <dt class="col-sm-3">Devolução Prevista:</dt>
   <dd class="col-sm-9"><%= l @rental.scheduled_end %></dd>
   <dt class="col-sm-3">Data de Retirada:</dt>
-  <% if @rental.active?%>
-    <dt class="col-sm-9"><%= l @rental.started_at %></dt>
-  <% else %>
-    <dt class="col-sm-9">---</dt>
-  <% end %>
+  
+    <dt class="col-sm-9"><%=  @rental.started_at %></dt>
+
   <% if @rental.finished? %>
     <dt class="col-sm-9"><%= l @rental.finished_at %></dt>
   <% else %>
@@ -21,6 +19,7 @@
 <p><%= @rental.user.email %></p>
 <h2>Cliente</h2>
 <p><%= @rental.customer.description %></p>
+
 <h2>Carro</h2>
 <%= render @rental.car %>
 <% if @rental.scheduled? %>
