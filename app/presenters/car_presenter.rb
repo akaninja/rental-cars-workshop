@@ -13,7 +13,7 @@ class CarPresenter < SimpleDelegator
     return '' if rented? 
     return '' unless policy.authorized?
     if available?
-      helper.link_to("Enviar para manutenção", new_car_maintenance_path(self))
+      return helper.link_to("Enviar para manutenção", new_car_maintenance_path(self))
     end
     helper.link_to("Dar baixa em manutenção", new_return_maintenance_path(current_maintenance))
   end
