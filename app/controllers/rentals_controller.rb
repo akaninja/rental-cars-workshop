@@ -8,6 +8,7 @@ class RentalsController < ApplicationController
 
   def create
     @rental = current_user.rentals.new(rental_params)
+
     if @rental.save
       RentalMailer.send_rental_receipt(@rental.id).deliver_now
       flash[:notice] = 'Um email de confirmação foi enviado para o cliente'
@@ -35,19 +36,26 @@ class RentalsController < ApplicationController
     @car = Rental.find(params[:id]).car
   end
 
+     ##if RentalFinisher.new(@rental, params[:car][:car_km])
+
   def return_car
     @rental = Rental.find(params[:id])
     @car = @rental.car
     if @car.update(car_km: params[:car][:car_km], status: :available)
       @rental.update(finished_at: Time.zone.now)
+      @rental.finished!
       RentalMailer.send_return_receipt(@rental.id).deliver_now
       redirect_to @rental.car, notice: 'Carro devolvido com sucesso'
     else
-      flash.now[:notice] = 'Nao foi possivel salvar'
+      flash.now[:notice] = 'Nao foi possível salvar'
       render :new_car_return
     end
   end
 
+  def rental_period
+    RentalByPeriodQuery(star..finish).call
+  end
+  
   private
 
   def rental_params
