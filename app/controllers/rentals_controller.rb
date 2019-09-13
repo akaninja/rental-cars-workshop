@@ -36,7 +36,7 @@ class RentalsController < ApplicationController
     @car = Rental.find(params[:id]).car
   end
 
-     ##if RentalFinisher.new(@rental, params[:car][:car_km])
+  ##if RentalFinisher.new(@rental, params[:car][:car_km])
 
   def return_car
     @rental = Rental.find(params[:id])
